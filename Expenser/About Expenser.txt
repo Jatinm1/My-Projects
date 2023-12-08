@@ -1,0 +1,20 @@
+Expenser is an Expense Management app which is created in Java. For Front-end I have used Java swing framework and JFrame. For Back-end it is using SQL Database which I have hosted on phpMyadmin. The connection is done through JDBC.
+
+In this application, you can add your Expenses according to the Categories to keep track of your spending.
+
+It provides different Views on Main Page such as
+• Monthly View
+• Last 30 Days Spendings
+• All Expenses till Date
+
+It also have a separate Transaction View page in which you can view your transactions in a sorted manner to better analyze your spendings.
+You can Sort your transactions in four different ways:
+• Date - Newest to Oldest
+• Date - Oldest to Newest
+• Price - High to Low
+• Price - Low to High
+
+You can also view your Transactions for a particular Time-period or a Category.
+
+
+

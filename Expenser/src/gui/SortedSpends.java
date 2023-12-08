@@ -1,0 +1,399 @@
+package gui;
+
+import java.awt.Font;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+
+/**
+ *
+ * @author jatin
+ */
+public class SortedSpends extends javax.swing.JFrame {
+
+    /**
+     * Creates new form SortedSpends
+     */
+    public SortedSpends() {
+        initComponents();
+        tableProps();
+    }
+    
+    void tableProps(){
+        TableColumn Dcol1 = sortedTable.getColumnModel().getColumn(0);
+        Dcol1.setPreferredWidth(100);
+        TableColumn Dcol2 = sortedTable.getColumnModel().getColumn(1);
+        Dcol2.setPreferredWidth(150);
+        TableColumn Dcol3 = sortedTable.getColumnModel().getColumn(2);
+        Dcol3.setPreferredWidth(100);
+        TableColumn Dcol4 = sortedTable.getColumnModel().getColumn(3);
+        Dcol4.setPreferredWidth(100);
+        
+        
+        JTableHeader headerC = sortedTable.getTableHeader();
+        headerC.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+    
+    
+    
+    }
+    
+    
+
+    private DefaultTableModel tableGetter() {
+        javax.swing.table.DefaultTableModel dtm
+                = (javax.swing.table.DefaultTableModel) sortedTable.getModel();
+        int rc = dtm.getRowCount();
+        while (rc-- != 0) {
+            dtm.removeRow(0);
+        }
+        return dtm;
+    }
+
+    
+    
+    private ResultSet rSetNewToOld() throws SQLException {
+        int getMonthfromUser = spendMonth.getMonth();
+        int getYearfromUser = spendYear.getYear();
+        int selectedMonth = getMonthfromUser + 1;
+        ResultSet rs = db.DbConnect.st.executeQuery("select * from spendings where MONTH(sdate) = '" + selectedMonth + "' and YEAR(sdate) = '" + getYearfromUser + "' order by sdate desc");
+        return rs;
+    }
+    
+    private ResultSet rSetOldToNew() throws SQLException {
+        int getMonthfromUser = spendMonth.getMonth();
+        int getYearfromUser = spendYear.getYear();
+        int selectedMonth = getMonthfromUser + 1;
+        ResultSet rs = db.DbConnect.oton.executeQuery("select * from spendings where MONTH(sdate) = '" + selectedMonth + "' and YEAR(sdate) = '" + getYearfromUser + "' order by sdate asc");
+        return rs;
+    }
+    
+    private ResultSet rSetHighToLow() throws SQLException {
+        int getMonthfromUser = spendMonth.getMonth();
+        int getYearfromUser = spendYear.getYear();
+        int selectedMonth = getMonthfromUser + 1;
+        ResultSet rs = db.DbConnect.htol.executeQuery("select * from spendings where MONTH(sdate) = '" + selectedMonth + "' and YEAR(sdate) = '" + getYearfromUser + "' order by amount desc");
+        return rs;
+    }
+    
+    private ResultSet rSetLowToHigh() throws SQLException {
+        int getMonthfromUser = spendMonth.getMonth();
+        int getYearfromUser = spendYear.getYear();
+        int selectedMonth = getMonthfromUser + 1;
+        ResultSet rs = db.DbConnect.ltoh.executeQuery("select * from spendings where MONTH(sdate) = '" + selectedMonth + "' and YEAR(sdate) = '" + getYearfromUser + "' order by amount asc");
+        return rs;
+    }
+
+    private void addTableData(ResultSet x) throws SQLException {
+        tableGetter();
+        DefaultTableModel dtm = tableGetter();
+        ResultSet rs = x;
+        int total = 0;
+        while (rs.next()) {
+            int t = rs.getInt("amount");
+            total += t;
+            Object o[] = {rs.getDate("sdate"), rs.getString("tname"), rs.getString("category"), t};
+
+            dtm.addRow(o);
+            totalAmountSorted.setText(total + "");
+        }
+    }
+
+    
+
+
+    private void getNtoO() {
+        try {
+            tableGetter();
+            ResultSet rs = rSetNewToOld();
+            addTableData(rSetNewToOld());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+
+        }
+
+    }
+
+    private void getOtoN() {
+        try {
+            tableGetter();
+            ResultSet rs = rSetOldToNew();
+            addTableData(rSetOldToNew());
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+
+        }
+
+    }
+
+    private void getHtoL() {
+        try {
+            tableGetter();
+            ResultSet rs = rSetHighToLow();
+            addTableData(rSetHighToLow());
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+
+        }
+
+    }
+
+    private void getLtoH() {
+        try {
+            tableGetter();
+            ResultSet rs = rSetLowToHigh();
+            addTableData(rSetLowToHigh());
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+
+        }
+
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jScrollPane1 = new javax.swing.JScrollPane();
+        sortedTable = new javax.swing.JTable();
+        kGradientPanel1 = new keeptoo.KGradientPanel();
+        dateNewToOld = new javax.swing.JButton();
+        dateOldToNew = new javax.swing.JButton();
+        priceHighToLow = new javax.swing.JButton();
+        priceLowToHigh = new javax.swing.JButton();
+        spendYear = new com.toedter.calendar.JYearChooser();
+        spendMonth = new com.toedter.calendar.JMonthChooser();
+        jLabel1 = new javax.swing.JLabel();
+        totalAmountSorted = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Sorted Expenses");
+
+        sortedTable.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        sortedTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Date", "Transaction Name", "Category", "Amount"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        sortedTable.setGridColor(new java.awt.Color(0, 0, 0));
+        sortedTable.setRowHeight(35);
+        sortedTable.setShowGrid(true);
+        jScrollPane1.setViewportView(sortedTable);
+
+        kGradientPanel1.setkGradientFocus(1500);
+
+        dateNewToOld.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
+        dateNewToOld.setForeground(new java.awt.Color(255, 255, 255));
+        dateNewToOld.setText("Date - Newest to Oldest");
+        dateNewToOld.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
+        dateNewToOld.setContentAreaFilled(false);
+        dateNewToOld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateNewToOldActionPerformed(evt);
+            }
+        });
+
+        dateOldToNew.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
+        dateOldToNew.setForeground(new java.awt.Color(255, 255, 255));
+        dateOldToNew.setText("Date - Oldest to Newest");
+        dateOldToNew.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
+        dateOldToNew.setContentAreaFilled(false);
+        dateOldToNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateOldToNewActionPerformed(evt);
+            }
+        });
+
+        priceHighToLow.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
+        priceHighToLow.setForeground(new java.awt.Color(255, 255, 255));
+        priceHighToLow.setText("Price - High to Low");
+        priceHighToLow.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
+        priceHighToLow.setContentAreaFilled(false);
+        priceHighToLow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                priceHighToLowActionPerformed(evt);
+            }
+        });
+
+        priceLowToHigh.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
+        priceLowToHigh.setForeground(new java.awt.Color(255, 255, 255));
+        priceLowToHigh.setText("Price - Low to High");
+        priceLowToHigh.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
+        priceLowToHigh.setContentAreaFilled(false);
+        priceLowToHigh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                priceLowToHighActionPerformed(evt);
+            }
+        });
+
+        spendYear.setBackground(new java.awt.Color(255, 255, 255));
+        spendYear.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        spendYear.setDayChooser(null);
+        spendYear.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                spendYearPropertyChange(evt);
+            }
+        });
+
+        spendMonth.setBackground(new java.awt.Color(255, 255, 255));
+        spendMonth.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        spendMonth.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                spendMonthPropertyChange(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("Total Spendings:");
+
+        totalAmountSorted.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        totalAmountSorted.setForeground(new java.awt.Color(255, 255, 255));
+        totalAmountSorted.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        totalAmountSorted.setText("0");
+
+        javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
+        kGradientPanel1.setLayout(kGradientPanel1Layout);
+        kGradientPanel1Layout.setHorizontalGroup(
+            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(dateNewToOld, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dateOldToNew, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(spendMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(priceHighToLow, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(priceLowToHigh, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
+                    .addComponent(totalAmountSorted, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(spendYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        kGradientPanel1Layout.setVerticalGroup(
+            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(spendYear, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spendMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(priceHighToLow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dateNewToOld, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(priceLowToHigh, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(dateOldToNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(totalAmountSorted, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1191, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void priceLowToHighActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceLowToHighActionPerformed
+        totalAmountSorted.setText("0");
+        getLtoH();
+    }//GEN-LAST:event_priceLowToHighActionPerformed
+
+    private void dateNewToOldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateNewToOldActionPerformed
+        totalAmountSorted.setText("0");
+        getNtoO();
+    }//GEN-LAST:event_dateNewToOldActionPerformed
+
+    private void dateOldToNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOldToNewActionPerformed
+        totalAmountSorted.setText("0");
+        getOtoN();
+    }//GEN-LAST:event_dateOldToNewActionPerformed
+
+    private void priceHighToLowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceHighToLowActionPerformed
+        totalAmountSorted.setText("0");
+        getHtoL();
+    }//GEN-LAST:event_priceHighToLowActionPerformed
+
+    private void spendYearPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_spendYearPropertyChange
+        totalAmountSorted.setText("0");
+        getNtoO();
+    }//GEN-LAST:event_spendYearPropertyChange
+
+    private void spendMonthPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_spendMonthPropertyChange
+        totalAmountSorted.setText("0");
+        getNtoO();
+    }//GEN-LAST:event_spendMonthPropertyChange
+
+    /**
+     * @param args the command line arguments
+     */
+    
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton dateNewToOld;
+    private javax.swing.JButton dateOldToNew;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JButton priceHighToLow;
+    private javax.swing.JButton priceLowToHigh;
+    private javax.swing.JTable sortedTable;
+    private com.toedter.calendar.JMonthChooser spendMonth;
+    private com.toedter.calendar.JYearChooser spendYear;
+    private javax.swing.JLabel totalAmountSorted;
+    // End of variables declaration//GEN-END:variables
+}

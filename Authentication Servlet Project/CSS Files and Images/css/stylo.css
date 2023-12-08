@@ -1,0 +1,159 @@
+*{
+margin: 0;
+padding: 0;
+/* height: 100%; */
+
+
+}
+
+
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    background-color:#f58220;
+    /* width: 100vw; */
+    padding: 1rem;
+    height: 40px;
+}
+.logo{
+    /* outline: auto; */
+    /* border-radius: 20px; */
+    color: white;
+    font-size: 26px;
+    padding: 5px 15px;
+    /* background-color: rgb(0, 106, 255); */
+    /* margin-right: 20px; */
+    font-family: 'Nunito';
+    font-weight: bold;
+}
+
+
+
+
+.btn{
+    font-family: 'Nunito';
+    font-weight: bold;
+
+    /* outline: auto; */
+    border: 2px solid white;
+    border-radius: 10px;
+    color: white;
+    font-size: 22px;
+    padding: 5px 15px;
+    background: transparent;
+    margin-right: 20px;
+}
+.mainbox{
+    /* background-color: #ff2b2b; */
+    padding: 40px 0 ;
+    /* height: calc(90vh - 40px); */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    /* width: 1vw; */
+    /* height: 250px; */
+}
+.font{
+    display: flex;
+    /* color: #f58220; */
+    /* background-color: #fff; */
+    padding: 10px;
+    /* border: 2px solid green; */
+    font-size: 22px;
+    text-align: center;
+    width: 65%;
+    font-family: 'Nunito';
+    font-weight: bold;
+    /* font-style: italic; */
+}
+
+.ghbtn{
+    margin-top: 10px;
+    /* background-color: #fff; */
+    display: flex;
+    color: rgb(0, 145, 255);
+    /* background-color: #fff; */
+    padding: 10px;
+    /* border: 2px solid green; */
+    font-size: 25px;
+    text-align: center;
+    width: 65%;
+    justify-content: center;
+    
+}
+
+.ghbutton{
+    /* outline: auto; */
+    border: 1px solid white ;
+    width: 32vw;
+    border-radius: 20px;
+    color: white;
+    font-size: 22px;
+    padding: 15px 15px;
+    background-color: #f58220;
+    /* margin-right: 15px; */
+    text-align: left;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Nunito';
+    font-weight: bold;
+}
+.ghbutton:hover {
+   
+    background-color: rgb(0, 0, 0);
+  
+}
+.ghbutton img{
+    height: 35px;
+    width: 35px;
+    /* border: 2px solid black; */
+    
+}
+
+@media only screen and (max-width: 750px) {
+
+    /* .navbar {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+   */
+   .mainbox{
+    padding: 100px 0;
+    /* align-items: normal; */
+   }
+    .btn {
+      margin-right: 15px;
+      /* margin-bottom: 10px; */
+    }
+  
+    .font {
+       height: fit-content;
+        font-size: 14px;
+        width: 80%;
+    }
+
+    .ghbutton{
+        font-size: 18px;
+        width: 50vw;
+        text-align: center;
+
+    }
+
+    .ghbutton img{
+        height: 30px;
+        width: 30px;
+        /* border: 2px solid black; */
+        
+    }
+    .logo{
+		font-size: 20px;
+	}
+  }
+
