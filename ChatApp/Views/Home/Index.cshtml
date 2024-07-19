@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SignalRApp</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+
+    <style>
+        body {
+            background-color: #f0f5f9;
+            color: #333;
+        }
+
+        .container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .jumbotron {
+            background-color: #007bff;
+            color: #fff;
+            padding: 50px 0;
+        }
+
+        .feature {
+            margin-top: 25px;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #007bff;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: #007bff;
+        }
+
+        .feature-description {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+
+        .btn-large {
+            font-size: 24px;
+            padding: 20px 40px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome to Chatterbox</h1>
+            <p class="lead">Your internal communication hub for seamless collaboration.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 feature">
+                <i class="fas fa-comments feature-icon"></i>
+                <h2 class="feature-title">Instant Messaging</h2>
+                <p class="feature-description">Communicate in real-time with your colleagues.</p>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fas fa-user-cog feature-icon"></i>
+                <h2 class="feature-title">Role-Based Access</h2>
+                <p class="feature-description">Role based access for admins, developers, and project managers.</p>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fas fa-calendar-check feature-icon"></i>
+                <h2 class="feature-title">Attendance System</h2>
+                <p class="feature-description">Get Complete Information about Logging Times</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>

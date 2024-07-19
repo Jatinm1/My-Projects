@@ -1,0 +1,124 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SignalRApp</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+
+        .row {
+            margin-bottom: 20px;
+        }
+
+        .col-label {
+            font-weight: bold;
+        }
+
+        #messagesList, #sentMessagesList {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .message-item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .message-to-all {
+            background-color: springgreen;
+            color: black;
+        }
+
+        .message-container {
+            border: 2px black solid;
+            max-height: 300px; /* Maximum height to show only 15 messages */
+            overflow-y: auto; /* Enable vertical scrollbar when messages exceed the container height */
+            padding: 0;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hidden field to store the logged-in user's name -->
+        <input type="hidden" id="loggedInUserName" value="@UserManager.GetUserName(User)" />
+
+        <div class="row">
+            <!-- First column: Message sending section -->
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-3 col-label">Message:</div>
+                    <div class="col-9"><input type="text" id="messageInput" class="form-control" /></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3 col-label">Receiver:</div>
+                    <div class="col-9">
+                        <input type="text" id="userSearchInput" class="form-control" placeholder="Search users..." autocomplete="off" />
+                        <select id="usersDropdown" class="form-control" size="5" style="display:none;"></select>
+                        <div id="receiverError" class="error-message"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-9 offset-3">
+                        <button type="button" id="sendToUserButton" class="btn btn-primary">Send to User</button>
+                        <button type="button" id="sendButton" class="btn btn-secondary">Send to All</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second column: Sent messages -->
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-12">
+                        <h4 class="text-right">Sent Messages</h4>
+                        <ul id="sentMessagesList" class="message-container">
+                            <!-- Sent Messages will be dynamically added here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Third column: Received messages -->
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-12">
+                        <h4 class="text-right">Received Messages</h4>
+                        <ul id="messagesList" class="message-container">
+                            <!-- Messages will be dynamically added here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
+    <script src="~/js/chat.js"></script>
+</body>
+</html>
